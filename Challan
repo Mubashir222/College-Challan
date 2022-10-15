@@ -1,0 +1,23 @@
+!pip install tabula-py
+!pip install PyPDF2
+
+import pandas as pd
+import numpy as np
+import seaborn as sn
+import matplotlib.pyplot as plt
+import tabula as tab
+
+data = tab.read_pdf('MAF.pdf', pages='all')
+
+df = tab.convert_into('MAF.pdf','maf.csv',format = 'csv',pages = 'all')
+df = pd.read_csv('maf.csv')
+
+df = df.rename(columns={"Challan No": "Challan_NO", "Student Name": "St_Name","Roll No.":"RollNo","Due Date":"Due_Date"}, errors="raise")
+
+rollno = int(input('Enter your Roll No: '))
+df[df.RollNo == rollno]
+
+dept = input('Enter your department: ')
+datas = df[df.Department == dept]
+session = input('Enter Your Session: ')
+datas[datas.Session == session]
